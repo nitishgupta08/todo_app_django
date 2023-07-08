@@ -1,0 +1,16 @@
+{% block content %}
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">ToDo</a>
+        <form class="d-flex">
+            <form action="{% url 'home' %}" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search by title" name="search"
+                    aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </form>
+    </div>
+</nav>
+
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<div class="container my-5">
+    <div class="card text-dark bg-light shadow p-3 mb-5 bg-body rounded">
+        <div class="card-body text-center">
+            <h1>Delete Todo Item</h1>
+            <p>Are you sure you want to delete "{{ object }}" ?</p>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock content %}

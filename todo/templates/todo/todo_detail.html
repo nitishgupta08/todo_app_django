@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+
+
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="card text-dark bg-light shadow p-3 mb-5 bg-body rounded">
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <div>
+                            <h2 class="card-title">{{ todo.title }}</h2>
+                            <p class="card-title"><strong>description: </strong>{{ todo.description }}</>
+                            <p class="card-text"><strong>Status: </strong>{{ todo.status }}</p>
+                            <p class="card-text"><strong>Created At: </strong>{{ todo.created_at }}</p>
+
+                            {% for tag in todo.tags.all %}
+                            <span class="badge rounded-pill bg-primary">{{ tag.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-4">
+
+                        <div class="h-100 d-flex flex-column justify-content-between">
+
+
+                            <h4 class="card-title text-end">{{ todo.due_date }}</h4>
+
+
+                            <div class="text-end">
+
+                                <a href="{% url 'update_todo' todo.id %}" class="btn btn-warning my-2" role="button">
+                                    Update</a>
+
+                                <a href="{% url 'delete_todo' todo.id %}" class="btn btn-outline-danger my-2"
+                                    role="button">
+                                    Delete</a>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}
