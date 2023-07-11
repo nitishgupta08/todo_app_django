@@ -13,7 +13,7 @@ class SlugRelatedGetOrCreateField(serializers.SlugRelatedField):
     it does not exist
     '''
 
-    def to_internal_value(self, data): # didn't quite understand how this works
+    def to_internal_value(self, data):
         queryset = self.get_queryset()
         try:
             return queryset.get_or_create(**{self.slug_field: data})[0]
@@ -44,11 +44,6 @@ class TodoSerializer(serializers.ModelSerializer):
 
         return value
 
-
-    def create(self, validated_data):
-        # tags = validated_data.pop('tags',[])
-        # print(tags)
-        return super().create(validated_data)
 
     class Meta:
         '''
