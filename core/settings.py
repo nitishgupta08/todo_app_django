@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'todo',
     'api',
-    'silk'
+    'silk',
+    'import_export'
 ]
 
 MIDDLEWARE = [
