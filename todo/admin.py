@@ -1,18 +1,43 @@
 from django.contrib import admin, messages
 from django.utils.translation import ngettext
-
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources, fields
+from import_export.widgets import ManyToManyWidget
+from django.core.exceptions import ValidationError
+from datetime import datetime
 from .models import Tag, Todo
+from django.utils import timezone
 
 # Register your models here.
 
 admin.site.register(Tag)
 
 
+class TodoResource(resources.ModelResource):
+    tags = fields.Field(column_name='tags', attribute='tags', widget=ManyToManyWidget(Tag, field='name'))
+
+    def before_import_row(self, row, **kwargs):
+        due_date = datetime.strptime(row["due_date"], '%Y-%m-%d').date()
+
+        if due_date < timezone.localdate():
+            raise ValidationError("Due date cannot be in past")
+
+        tags = row["tags"].split(',')
+        for tag in tags:
+            Tag.objects.get_or_create(name=tag.strip())
+
+    class Meta:
+        model = Todo
+        fields = ('id', 'title', 'description', 'due_date', 'created_at', 'tags', 'high_priority', 'status',)
+        export_order = fields
+
+
 @admin.register(Todo)
-class ToDoAdmin(admin.ModelAdmin):
+class ToDoAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     """
     Todo settings for admin panel
     """
+    resource_class = TodoResource
     list_display = ["title", "status", "due_date", "created_at"]
     ordering = ["due_date"]
     readonly_fields = ("created_at",)
