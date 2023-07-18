@@ -1,15 +1,15 @@
-'''
+"""
 Models for the app
-'''
+"""
 
 from django.db import models
 from django.utils import timezone
 
 
 class Tag(models.Model):
-    '''
+    """
     Tag Model Class
-    '''
+    """
 
     name = models.CharField(max_length=100, unique=True)
 
@@ -18,9 +18,9 @@ class Tag(models.Model):
 
 
 class Todo(models.Model):
-    '''
+    """
     Todo Model Class
-    '''
+    """
 
     STATUS_CHOICES = (
         ("OPEN", "OPEN"),
@@ -43,9 +43,9 @@ class Todo(models.Model):
 
     @property
     def is_overdue(self):
-        '''
+        """
         returns True if current date is greater than due date
-        '''
+        """
         return timezone.localdate() >= self.due_date
 
     def __str__(self) -> str:

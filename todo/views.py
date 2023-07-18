@@ -1,6 +1,6 @@
-'''
+"""
 Views for the app
-'''
+"""
 from typing import Any, Dict
 
 from django.db.models import Q
@@ -17,18 +17,18 @@ from django.views.generic import (
 from .forms import ToDoForm
 from .models import Todo
 
+
 # Create your views here.
 
 class ListTodoView(ListView):
-    '''
+    """
     To list all todos in db
-    '''
+    """
 
     model = Todo
     template_name = 'todo/home.html'
     paginate_by = 10
     context_object_name = 'todos'
-
 
     def get_queryset(self):
         filter_val = self.request.GET.get('filter', 'None')
@@ -58,19 +58,20 @@ class ListTodoView(ListView):
         context['orderby_filters'] = ['due_date', 'title']
         return context
 
+
 class TodoDetailView(DetailView):
-    '''
+    """
     To list all todos in db
-    '''
+    """
     model = Todo
     template_name = 'todo/todo_detail.html'
     context_object_name = 'todo'
 
 
 class CreateToDoView(CreateView):
-    '''
+    """
     Create a ToDo
-    '''
+    """
     model = Todo
     template_name = 'todo/todo_form.html'
     form_class = ToDoForm
@@ -81,12 +82,13 @@ class CreateToDoView(CreateView):
         return context
 
     def get_success_url(self) -> str:
-        return reverse_lazy('detail',args=(self.object.id,))
+        return reverse_lazy('detail', args=(self.object.id,))
+
 
 class UpdateToDoView(UpdateView):
-    '''
+    """
     Update a ToDo
-    '''
+    """
     model = Todo
     template_name = 'todo/todo_form.html'
     form_class = ToDoForm
@@ -97,14 +99,13 @@ class UpdateToDoView(UpdateView):
         return context
 
     def get_success_url(self) -> str:
-        return reverse_lazy('detail',args=(self.object.id,))
-
+        return reverse_lazy('detail', args=(self.object.id,))
 
 
 class DeleteToDoView(DeleteView):
-    '''
+    """
     Delete a ToDo
-    '''
+    """
     model = Todo
     template_name = 'todo/todo_delete.html'
     success_url = '/'

@@ -10,9 +10,9 @@ admin.site.register(Tag)
 
 @admin.register(Todo)
 class ToDoAdmin(admin.ModelAdmin):
-    '''
+    """
     Todo settings for admin panel
-    '''
+    """
     list_display = ["title", "status", "due_date", "created_at"]
     ordering = ["due_date"]
     readonly_fields = ("created_at",)
@@ -21,8 +21,8 @@ class ToDoAdmin(admin.ModelAdmin):
     filter_horizontal = ("tags",)
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = [
-        ("Mandatory Fields", {"fields": [("title","due_date" ), "status"]}),
-        ("Optional Fields", {"fields": [ "description", "tags"]}),
+        ("Mandatory Fields", {"fields": [("title", "due_date"), "status"]}),
+        ("Optional Fields", {"fields": ["description", "tags"]}),
         ("Created At", {"fields": ["created_at"]}),
     ]
     list_filter = ["status", "tags"]
@@ -31,9 +31,9 @@ class ToDoAdmin(admin.ModelAdmin):
 
     @admin.action(description="Update status of selected as DONE")
     def status_done(self, request, queryset):
-        '''
+        """
         Added action that allows user to mark multiple tasks as done
-        '''
+        """
         updated = queryset.update(status="DONE")
         self.message_user(
             request,
@@ -45,6 +45,7 @@ class ToDoAdmin(admin.ModelAdmin):
             % updated,
             messages.SUCCESS,
         )
+
 
 admin.site.site_header = "AlgoBulls Todos Administration"
 admin.site.site_title = "AlgoBulls Administration"

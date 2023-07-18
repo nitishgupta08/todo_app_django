@@ -2,3 +2,4 @@ venv
 static
 /db.sqlite3
 core/.env
+.idea

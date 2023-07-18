@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('',include('todo.urls')),
-    path('api/',include('api.urls')),
+    path('', include('todo.urls')),
+    path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
     path('silk/', include('silk.urls', namespace='silk'))
 ]
