@@ -22,13 +22,13 @@ from .models import Todo
 
 class ListTodoView(ListView):
     """
-    To list all todos in db
+    To list all templates in db
     """
 
     model = Todo
     template_name = 'todo/home.html'
     paginate_by = 10
-    context_object_name = 'todos'
+    context_object_name = 'templates'
 
     def get_queryset(self):
         filter_val = self.request.GET.get('filter', 'None')
@@ -61,7 +61,7 @@ class ListTodoView(ListView):
 
 class TodoDetailView(DetailView):
     """
-    To list all todos in db
+    To list all templates in db
     """
     model = Todo
     template_name = 'todo/todo_detail.html'
