@@ -1,5 +1,5 @@
 """
-Script to populate db with 50 tags and 25 todos
+Script to populate db with 50 tags and 25 templates
 """
 
 import os

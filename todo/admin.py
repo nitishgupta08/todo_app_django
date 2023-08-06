@@ -38,7 +38,7 @@ class ToDoAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     Todo settings for admin panel
     """
     resource_class = TodoResource
-    list_display = ["title", "status", "due_date", "created_at"]
+    list_display = ["title", "status", "due_date", "created_at", 'owner']
     ordering = ["due_date"]
     readonly_fields = ("created_at",)
     search_fields = ("title__startswith",)
@@ -46,7 +46,7 @@ class ToDoAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     filter_horizontal = ("tags",)
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = [
-        ("Mandatory Fields", {"fields": [("title", "due_date"), "status"]}),
+        ("Mandatory Fields", {"fields": ["owner", ("title", "due_date"), "status"]}),
         ("Optional Fields", {"fields": ["description", "tags"]}),
         ("Created At", {"fields": ["created_at"]}),
     ]
@@ -72,6 +72,6 @@ class ToDoAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         )
 
 
-admin.site.site_header = "AlgoBulls Todos Administration"
-admin.site.site_title = "AlgoBulls Administration"
+admin.site.site_header = "Todos Administration"
+admin.site.site_title = "Todos Administration"
 admin.site.index_title = "Todos Admin"
