@@ -33,5 +33,11 @@ tags = list(Tag.objects.all())
 
 for i in range(1, 25):
     todo_tags = random.choices(tags, k=random.choice([1, 51]))
-    my_todo = Todo.objects.create(title=f"todo {i}", due_date=fake.date_between(start_date="today", end_date="+30d"), status=random.choice(status), description=des, high_priority=random.getrandbits(1))
+    my_todo = Todo.objects.create(
+        title=f"todo {i}",
+        due_date=fake.date_between(start_date="today", end_date="+30d"),
+        status=random.choice(status),
+        description=des,
+        high_priority=random.getrandbits(1),
+    )
     my_todo.tags.set(todo_tags)

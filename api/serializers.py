@@ -52,4 +52,12 @@ class TodoSerializer(serializers.ModelSerializer):
         """
 
         model = Todo
-        fields = ["id", "title", "description", "status", "high_priority", "tags", "due_date"]
+        fields = [
+            "id",
+            "title",
+            "description",
+            "status",
+            "high_priority",
+            "tags",
+            "due_date",
+        ]
