@@ -24,4 +24,4 @@ jobs:
           pip install black
 
       - name: Format code with Black
-        run: black . --line-length 250
+        run: black . --line-length=250
