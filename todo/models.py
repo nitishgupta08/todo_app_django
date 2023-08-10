@@ -15,7 +15,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self) -> str:
-        return str(f'{self.name}')
+        return str(f"{self.name}")
 
 
 class Todo(models.Model):
@@ -50,4 +50,4 @@ class Todo(models.Model):
         return timezone.localdate() >= self.due_date
 
     def __str__(self) -> str:
-        return str(f'{self.title}')
+        return str(f"{self.title}")

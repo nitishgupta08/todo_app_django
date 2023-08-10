@@ -14,21 +14,30 @@ admin.site.register(Tag)
 
 
 class TodoResource(resources.ModelResource):
-    tags = fields.Field(column_name='tags', attribute='tags', widget=ManyToManyWidget(Tag, field='name'))
+    tags = fields.Field(column_name="tags", attribute="tags", widget=ManyToManyWidget(Tag, field="name"))
 
     def before_import_row(self, row, **kwargs):
-        due_date = datetime.strptime(row["due_date"], '%Y-%m-%d').date()
+        due_date = datetime.strptime(row["due_date"], "%Y-%m-%d").date()
 
         if due_date < timezone.localdate():
             raise ValidationError("Due date cannot be in past")
 
-        tags = row["tags"].split(',')
+        tags = row["tags"].split(",")
         for tag in tags:
             Tag.objects.get_or_create(name=tag.strip())
 
     class Meta:
         model = Todo
-        fields = ('id', 'title', 'description', 'due_date', 'created_at', 'tags', 'high_priority', 'status',)
+        fields = (
+            "id",
+            "title",
+            "description",
+            "due_date",
+            "created_at",
+            "tags",
+            "high_priority",
+            "status",
+        )
         export_order = fields
 
 
@@ -37,8 +46,9 @@ class ToDoAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     """
     Todo settings for admin panel
     """
+
     resource_class = TodoResource
-    list_display = ["title", "status", "due_date", "created_at", 'owner']
+    list_display = ["title", "status", "due_date", "created_at", "owner"]
     ordering = ["due_date"]
     readonly_fields = ("created_at",)
     search_fields = ("title__startswith",)

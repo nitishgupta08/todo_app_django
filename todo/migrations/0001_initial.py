@@ -4,30 +4,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, unique=True)),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=100, unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Todo',
+            name="Todo",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100)),
-                ('description', models.TextField(blank=True)),
-                ('due_date', models.DateField()),
-                ('created_at', models.DateField(auto_now_add=True)),
-                ('high_priority', models.BooleanField(default=False)),
-                ('status', models.CharField(choices=[('OPEN', 'OPEN'), ('WORKING', 'WORKING'), ('DONE', 'DONE'), ('OVERDUE', 'OVERDUE')], default='OPEN', max_length=10)),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("title", models.CharField(max_length=100)),
+                ("description", models.TextField(blank=True)),
+                ("due_date", models.DateField()),
+                ("created_at", models.DateField(auto_now_add=True)),
+                ("high_priority", models.BooleanField(default=False)),
+                ("status", models.CharField(choices=[("OPEN", "OPEN"), ("WORKING", "WORKING"), ("DONE", "DONE"), ("OVERDUE", "OVERDUE")], default="OPEN", max_length=10)),
             ],
         ),
     ]

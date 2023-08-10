@@ -6,23 +6,22 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('todo', '0001_initial'),
+        ("todo", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='todo',
-            name='owner',
+            model_name="todo",
+            name="owner",
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
-            model_name='todo',
-            name='tags',
-            field=models.ManyToManyField(blank=True, to='todo.tag'),
+            model_name="todo",
+            name="tags",
+            field=models.ManyToManyField(blank=True, to="todo.tag"),
         ),
     ]

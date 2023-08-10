@@ -23,7 +23,7 @@ class ToDoForm(ModelForm):
     """
 
     def clean_due_date(self):
-        due_date = self.cleaned_data['due_date']
+        due_date = self.cleaned_data["due_date"]
         if due_date < timezone.localdate():
             raise ValidationError("Due date cannot be before current date.")
 
@@ -33,15 +33,15 @@ class ToDoForm(ModelForm):
         """
         Meta class
         """
+
         model = Todo
-        fields = ['title', 'description', 'tags', 'status', 'due_date', 'high_priority']
+        fields = ["title", "description", "tags", "status", "due_date", "high_priority"]
 
         widgets = {
-            'title': TextInput(attrs={"class":"form-control"}),
-            'due_date': DateInput(attrs={"class":"form-control", "placeholder": 'YYYY-MM-DD'}),
-            'description': Textarea(attrs={"class":"form-control","rows":5, "maxlength":1000}),
-            'status': RadioSelect(attrs={"class":"radio-inline"}),
-            'tags': SelectMultiple(attrs={"class":"form-select"}),
-            'high_priority': CheckboxInput(attrs={"class":"form-check-input"}),
-
+            "title": TextInput(attrs={"class": "form-control"}),
+            "due_date": DateInput(attrs={"class": "form-control", "placeholder": "YYYY-MM-DD"}),
+            "description": Textarea(attrs={"class": "form-control", "rows": 5, "maxlength": 1000}),
+            "status": RadioSelect(attrs={"class": "radio-inline"}),
+            "tags": SelectMultiple(attrs={"class": "form-select"}),
+            "high_priority": CheckboxInput(attrs={"class": "form-check-input"}),
         }

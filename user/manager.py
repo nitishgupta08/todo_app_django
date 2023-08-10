@@ -2,7 +2,6 @@ from django.contrib.auth.base_user import BaseUserManager
 
 
 class CustomUserManager(BaseUserManager):
-
     def create_user(self, email, password=None, **kwargs):
         if not email:
             raise ValueError("Email is required!")
@@ -14,9 +13,9 @@ class CustomUserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self,email, password=None, **kwargs):
-        kwargs.setdefault('is_staff', True)
-        kwargs.setdefault('is_superuser', True)
-        kwargs.setdefault('is_active', True)
+    def create_superuser(self, email, password=None, **kwargs):
+        kwargs.setdefault("is_staff", True)
+        kwargs.setdefault("is_superuser", True)
+        kwargs.setdefault("is_active", True)
 
-        return self.create_user(email,password, **kwargs)
+        return self.create_user(email, password, **kwargs)
