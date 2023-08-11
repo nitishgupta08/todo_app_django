@@ -32,7 +32,7 @@ jobs:
         id: check_changes
         run: |
           CHANGED_FILES=$(git diff --name-only)
-          CHANGES=$(black --check $CHANGED_FILES)
+          CHANGES=$(black . --check $CHANGED_FILES)
           echo "$CHANGES"
           if [ -z "$CHANGES" ]; then
             echo "No formatting changes detected."
