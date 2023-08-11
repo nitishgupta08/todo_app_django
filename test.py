@@ -1,4 +1,4 @@
-x = {'a': 37, 'b': 42, 'c': 927}
+x = {"a": 37, "b": 42, "c": 927}
 
 x = 123456789.123456789e123456789
 
@@ -34,10 +34,17 @@ def very_important_function(
     with open(file, "w") as f:
         ...
 
+
 custom_formatting = [
-    0,  1,  2,
-    3,  4,  5,
-    6,  7,  8,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
 ]
 
 regular_formatting = [
