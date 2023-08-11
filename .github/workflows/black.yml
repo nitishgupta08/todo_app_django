@@ -38,11 +38,10 @@ jobs:
           echo "CHANGES=$CHANGES" >> $GITHUB_ENV
 
       - name: Commit changes
-        if: env.CHANGES == 'true'
+        if: steps.git-check.outputs.CHANGES == 'true'
         run: |      
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add .
           git commit -m "Auto-format code using black"
           git push   
-          
