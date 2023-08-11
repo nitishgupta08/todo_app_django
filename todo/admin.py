@@ -14,7 +14,9 @@ admin.site.register(Tag)
 
 
 class TodoResource(resources.ModelResource):
-    tags = fields.Field(column_name="tags", attribute="tags", widget=ManyToManyWidget(Tag, field="name"))
+    tags = fields.Field(
+        column_name="tags", attribute="tags", widget=ManyToManyWidget(Tag, field="name")
+    )
 
     def before_import_row(self, row, **kwargs):
         due_date = datetime.strptime(row["due_date"], "%Y-%m-%d").date()
