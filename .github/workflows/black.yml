@@ -18,16 +18,6 @@ jobs:
         with:
           token: ${{secrets.PAT}}
 
-      - name: Check Commit Author's Email
-        id: check_commit_author
-        run: |
-          COMMITTER_EMAIL=$(git log -1 --format='%ae')
-          echo "Committer's email: $COMMITTER_EMAIL"
-          if [ "$COMMITTER_EMAIL" = "action@github.com" ]; then
-            echo "Skipping workflow for specific email address."
-            exit 0
-          fi 
-
       - name: Set up Python
         uses: actions/setup-python@v4.7.0
         with:
