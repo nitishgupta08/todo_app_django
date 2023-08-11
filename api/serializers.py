@@ -26,18 +26,14 @@ class TodoSerializer(serializers.ModelSerializer):
     Model Serializer
     """
 
-    tags = SlugRelatedGetOrCreateField(
-        slug_field="name", queryset=Tag.objects.all(), many=True
-    )
+    tags = SlugRelatedGetOrCreateField(slug_field="name", queryset=Tag.objects.all(), many=True)
     id = serializers.CharField(read_only=True)
 
     def validate(self, data):
         if hasattr(self, "initial_data"):
             unknown_keys = set(self.initial_data.keys()) - set(self.fields.keys())
             if unknown_keys:
-                raise serializers.ValidationError(
-                    "Got unknown fields: {}".format(unknown_keys)
-                )
+                raise serializers.ValidationError("Got unknown fields: {}".format(unknown_keys))
         return data
 
     @staticmethod

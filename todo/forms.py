@@ -39,12 +39,8 @@ class ToDoForm(ModelForm):
 
         widgets = {
             "title": TextInput(attrs={"class": "form-control"}),
-            "due_date": DateInput(
-                attrs={"class": "form-control", "placeholder": "YYYY-MM-DD"}
-            ),
-            "description": Textarea(
-                attrs={"class": "form-control", "rows": 5, "maxlength": 1000}
-            ),
+            "due_date": DateInput(attrs={"class": "form-control", "placeholder": "YYYY-MM-DD"}),
+            "description": Textarea(attrs={"class": "form-control", "rows": 5, "maxlength": 1000}),
             "status": RadioSelect(attrs={"class": "radio-inline"}),
             "tags": SelectMultiple(attrs={"class": "form-select"}),
             "high_priority": CheckboxInput(attrs={"class": "form-check-input"}),
