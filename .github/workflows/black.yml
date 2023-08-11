@@ -30,7 +30,9 @@ jobs:
         run: |
           git config user.name "nitishgupta"
           git config user.email "nitishkg88@gmail.com"
-          git commit -a -m "Auto-format code using black" || true
+          git add .
+          git commit -m "Auto-format code using black"
+          git push
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
