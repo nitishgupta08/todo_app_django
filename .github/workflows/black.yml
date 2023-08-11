@@ -35,9 +35,11 @@ jobs:
         id: git-check
         run: |
           CHANGES=$(git diff --exit-code || echo "true")
-          echo "CHANGES=$CHANGES" >> "$GITHUB_OUTPUT"
+          echo "CHANGES=$CHANGES" >> $GITHUB_OUTPUT
 
       - name: Commit changes
+        env:
+          GITHUB_OUTPUT: ${{ steps.git-check.outputs.CHANGES }}
         if: steps.git-check.outputs.CHANGES == 'true'
         run: |      
           git config user.name "GitHub Action"
