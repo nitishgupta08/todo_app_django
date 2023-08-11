@@ -25,3 +25,15 @@ jobs:
 
       - name: Format code with Black
         run: black . --line-length=250
+
+      - name: Commit changes
+        run: |
+          git config user.name "nitishgupta"
+          git config user.email "nitishkg88@gmail.com"
+          git commit -a -m "Auto-format code using black" || true
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        
