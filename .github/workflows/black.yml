@@ -42,7 +42,7 @@ jobs:
         run: black . --line-length=250
 
       - name: Commit changes
-        if: github.actor != "actions-user"
+        if: github.actor != "github-actions[bot]"
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
