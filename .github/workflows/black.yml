@@ -28,19 +28,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install black
 
-      - name: Check for Formatting Changes
-        id: check_changes
-        run: |
-          CHANGED_FILES=$(git diff --name-only)
-          CHANGES=$(black . --check $CHANGED_FILES)
-          echo "$CHANGES"
-          if [ -z "$CHANGES" ]; then
-            echo "No formatting changes detected."
-            exit 0
-          else
-            echo "Formatting changes detected."
-          fi
-
       - name: Format code with Black
         run: black . --line-length=250
 
