@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3.5.3
+        with:
+          token: ${{secrets.PAT}}
 
       - name: Set up Python
         uses: actions/setup-python@v4.7.0
@@ -32,10 +34,5 @@ jobs:
           git config user.email "nitishkg88@gmail.com"
           git add .
           git commit -m "Auto-format code using black"
-          git push
-
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-        
+          git push   
+          
