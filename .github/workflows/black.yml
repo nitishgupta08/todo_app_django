@@ -25,7 +25,7 @@ jobs:
           echo "Committer's email: $COMMITTER_EMAIL"
           if [ "$COMMITTER_EMAIL" = "action@github.com" ]; then
             echo "Skipping workflow for specific email address."
-            echo "::set-output name=skip_workflow::true"
+            exit 0
           fi 
 
       - name: Set up Python
