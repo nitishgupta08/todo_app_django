@@ -15,7 +15,7 @@ from pathlib import Path
 
 import environ
 
-print('hello world')
+print("hello world")
 env = environ.Env()
 environ.Env.read_env()
 
