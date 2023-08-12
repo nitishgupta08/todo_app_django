@@ -5,7 +5,7 @@ import random
 
 import matplotlib.pyplot as plt
 
-
+print('hello world')
 # Given all the co-ordinates of the cities 
 # we will first generate a Matrix that represents
 # distance between any two cities
