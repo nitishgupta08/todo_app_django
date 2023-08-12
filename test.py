@@ -1,204 +1,158 @@
-## Solving the Travelling Salesman Problem using the
-## steepest accent variation of hill climbing algorithm
-import math
-import random
+gclient_gn_args_from = 'src'
 
-import matplotlib.pyplot as plt
+vars = {
+  'chromium_version':
+    '117.0.5921.0',
+  'node_version':
+    'v18.17.0',
+  'nan_version':
+    '16fa32231e2ccd89d2804b3f765319128b20c4ac',
+  'squirrel.mac_version':
+    '0e5d146ba13101a1302d59ea6e6e0b3cace4ae38',
+  'reactiveobjc_version':
+    '74ab5baccc6f7202c8ac69a8d1e152c29dc1ea76',
+  'mantle_version':
+    '78d3966b3c331292ea29ec38661b25df0a245948',
 
-print("hello world")
+  'pyyaml_version': '3.12',
 
+  'chromium_git': 'https://chromium.googlesource.com',
+  'electron_git': 'https://github.com/electron',
+  'nodejs_git': 'https://github.com/nodejs',
+  'yaml_git': 'https://github.com/yaml',
+  'squirrel_git': 'https://github.com/Squirrel',
+  'reactiveobjc_git': 'https://github.com/ReactiveCocoa',
+  'mantle_git': 'https://github.com/Mantle',
 
-# Given all the co-ordinates of the cities
-# we will first generate a Matrix that represents
-# distance between any two cities
-def generateMatrix(xcord, ycord, n):
-    tsp = []
-    for i in range(n):
-        row = []
-        for j in range(n):
-            if j == i:
-                row.append(0)
-            elif j < i:
-                row.append(tsp[j][i])
-            else:
-                distance = math.sqrt((xcord[i] - xcord[j]) ** 2 + (ycord[i] - ycord[j]) ** 2)
-                row.append(distance)
-        tsp.append(row)
-    return tsp
+  # KEEP IN SYNC WITH utils.js FILE
+  'yarn_version': '1.15.2',
 
+  # To be able to build clean Chromium from sources.
+  'apply_patches': True,
 
-# The idea is to generate a random path
-# and then optimise it
-def randomPath(n):
-    cities = list(range(n))
-    path = []
-    for i in range(n):
-        city = cities[random.randint(0, len(cities) - 1)]
-        path.append(city)
-        cities.remove(city)
-    return path
+  # To use an mtime cache for patched files to speed up builds.
+  'use_mtime_cache': True,
 
+  # To allow in-house builds to checkout those manually.
+  'checkout_chromium': True,
+  'checkout_node': True,
+  'checkout_nan': True,
+  'checkout_pgo_profiles': True,
 
-# Cost of every path calculated using the
-# TSP matrix
-def heuristic(tsp, path):
-    cost = 0
-    for i in range(len(path)):
-        cost += tsp[path[i - 1]][path[i]]
-    return cost
+  # It's only needed to parse the native tests configurations.
+  'checkout_pyyaml': False,
 
+  'use_rts': False,
 
-# Get varients of the random path
-# to find the path with the best reward
-# In this case path with least cost
-def generateVarients(path):
-    varients = []
-    for i in range(len(path)):
-        for j in range(i + 1, len(path)):
-            varient = path.copy()
-            varient[i] = path[j]
-            varient[j] = path[i]
-            varients.append(varient)
-    return varients
+  'mac_xcode_version': 'default',
 
+  'generate_location_tags': False,
 
-# Get the varient with minimum cost
-def getBestVarient(tsp, varients):
-    # set 0th index to best past and then
-    # compare it remaining varients
-    minPathCost = heuristic(tsp, varients[0])
-    bestVarient = varients[0]
-    for varient in varients:
-        varientPathCost = heuristic(tsp, varient)
-        if varientPathCost < minPathCost:
-            minPathCost = varientPathCost
-            bestVarient = varient
-    return bestVarient, minPathCost
+  # To allow running hooks without parsing the DEPS tree
+  'process_deps': True,
 
+  'checkout_nacl':
+    False,
+  'checkout_libaom':
+    True,
+  'checkout_oculus_sdk':
+    False,
+  'checkout_openxr':
+    False,
+  'build_with_chromium':
+    True,
+  'checkout_android':
+    False,
+  'checkout_android_native_support':
+    False,
+  'checkout_google_benchmark':
+    False,
+  'checkout_clang_tidy':
+    True,
+}
 
-# The graph is updated after every iteration
-def updateGraph(path, cost, iteration):
-    plt.cla()
-    plt.scatter(xcord, ycord, color="m")
-    x = []
-    y = []
-    for i in path:
-        x.append(xcord[i])
-        y.append(ycord[i])
-    x.append(xcord[path[0]])
-    y.append(ycord[path[0]])
-    if iteration == 0:
-        title = "Final Solution"
-    else:
-        title = f"Iteration number: {iteration}"
-    title = title + "           " + f"Cost: {cost:.3f}"
-    plt.title(title)
-    plt.plot(x, y, color="m")
-    plt.pause(0.001)
+deps = {
+  'src': {
+    'url': (Var("chromium_git")) + '/chromium/src.git@' + (Var("chromium_version")),
+    'condition': 'checkout_chromium and process_deps',
+  },
+  'src/third_party/nan': {
+    'url': (Var("nodejs_git")) + '/nan.git@' + (Var("nan_version")),
+    'condition': 'checkout_nan and process_deps',
+  },
+  'src/third_party/electron_node': {
+    'url': (Var("nodejs_git")) + '/node.git@' + (Var("node_version")),
+    'condition': 'checkout_node and process_deps',
+  },
+  'src/third_party/pyyaml': {
+    'url': (Var("yaml_git")) + '/pyyaml.git@' + (Var("pyyaml_version")),
+    'condition': 'checkout_pyyaml and process_deps',
+  },
+  'src/third_party/squirrel.mac': {
+    'url': Var("squirrel_git") + '/Squirrel.Mac.git@' + Var("squirrel.mac_version"),
+    'condition': 'process_deps',
+  },
+  'src/third_party/squirrel.mac/vendor/ReactiveObjC': {
+    'url': Var("reactiveobjc_git") + '/ReactiveObjC.git@' + Var("reactiveobjc_version"),
+    'condition': 'process_deps'
+  },
+  'src/third_party/squirrel.mac/vendor/Mantle': {
+    'url':  Var("mantle_git") + '/Mantle.git@' + Var("mantle_version"),
+    'condition': 'process_deps',
+  }
+}
 
+pre_deps_hooks = [
+  {
+    'name': 'generate_mtime_cache',
+    'condition': '(checkout_chromium and apply_patches and use_mtime_cache) and process_deps',
+    'pattern': 'src/electron',
+    'action': [
+      'python3',
+      'src/electron/script/patches-mtime-cache.py',
+      'generate',
+      '--cache-file',
+      'src/electron/patches/mtime-cache.json',
+      '--patches-config',
+      'src/electron/patches/config.json',
+    ],
+  },
+]
 
-# This solution is not optimal, as number of nodes increase
-# the while loop may get stuck at local maximum or a plateu
-# and may not even return a path.
-def hillClimbing(tsp, n):
-    currentPath = randomPath(n)
-    currentPathCost = heuristic(tsp, currentPath)
-    updateGraph(currentPath, currentPathCost, 1)
-    print(f"Path: {currentPath},Cost: {currentPathCost:.3f}, Iteration: {1}")
-    varients = generateVarients(currentPath)
-    bestVarient, minPathCost = getBestVarient(tsp, varients)
-    i = 1
-    data = []
-    # Continue this till we find the best vairent
-    while minPathCost < currentPathCost:
-        currentPath = bestVarient
-        currentPathCost = minPathCost
-        varients = generateVarients(currentPath)
-        bestVarient, minPathCost = getBestVarient(tsp, varients)
-        updateGraph(bestVarient, minPathCost, i)
-        i += 1
-        print(f"Path: {bestVarient},Cost: {minPathCost:.3f}, Iteration: {i}")
-        data.append((bestVarient, minPathCost))
-    updateGraph(currentPath, currentPathCost, 0)
-    print(f'Path: {data[-2][0]},Cost: {data[-2][1]:.3f},"FINAL SOLUTION"')
-    return currentPath, currentPathCost
+hooks = [
+  {
+    'name': 'patch_chromium',
+    'condition': '(checkout_chromium and apply_patches) and process_deps',
+    'pattern': 'src/electron',
+    'action': [
+      'python3',
+      'src/electron/script/apply_all_patches.py',
+      'src/electron/patches/config.json',
+    ],
+  },
+  {
+    'name': 'apply_mtime_cache',
+    'condition': '(checkout_chromium and apply_patches and use_mtime_cache) and process_deps',
+    'pattern': 'src/electron',
+    'action': [
+      'python3',
+      'src/electron/script/patches-mtime-cache.py',
+      'apply',
+      '--cache-file',
+      'src/electron/patches/mtime-cache.json',
+    ],
+  },
+  {
+    'name': 'electron_npm_deps',
+    'pattern': 'src/electron/package.json',
+    'action': [
+      'python3',
+      '-c',
+      'import os, subprocess; os.chdir(os.path.join("src", "electron")); subprocess.check_call(["python3", "script/lib/npx.py", "yarn@' + (Var("yarn_version")) + '", "install", "--frozen-lockfile"]);',
+    ],
+  },
+]
 
-
-##### Executing the program with a sample input from text file #####
-
-# read input from file
-f = open("input.txt", "r")
-n = int(f.readline())
-N = list(range(1, 21))
-cord = f.read().split("\n")
-xcord = []
-for i in cord[0].split():
-    xcord.append(float(i))
-ycord = []
-for i in cord[1].split():
-    ycord.append(float(i))
-
-# Creating a scatter plot with
-# all the coordinates  in input file
-plt.show()
-plt.scatter(xcord, ycord, color="m")
-
-tsp = generateMatrix(xcord, ycord, n)
-bestpath, mincost = hillClimbing(tsp, n)
-plt.show()
-
-from typing import Any
-
-
-def bubble_sort(collection: list[Any]) -> list[Any]:
-    """Pure implementation of bubble sort algorithm in Python
-
-    :param collection: some mutable ordered collection with heterogeneous
-    comparable items inside
-    :return: the same collection ordered by ascending
-
-    Examples:
-    >>> bubble_sort([0, 5, 2, 3, 2])
-    [0, 2, 2, 3, 5]
-    >>> bubble_sort([0, 5, 2, 3, 2]) == sorted([0, 5, 2, 3, 2])
-    True
-    >>> bubble_sort([]) == sorted([])
-    True
-    >>> bubble_sort([-2, -45, -5]) == sorted([-2, -45, -5])
-    True
-    >>> bubble_sort([-23, 0, 6, -4, 34]) == sorted([-23, 0, 6, -4, 34])
-    True
-    >>> bubble_sort(['d', 'a', 'b', 'e', 'c']) == sorted(['d', 'a', 'b', 'e', 'c'])
-    True
-    >>> import random
-    >>> collection = random.sample(range(-50, 50), 100)
-    >>> bubble_sort(collection) == sorted(collection)
-    True
-    >>> import string
-    >>> collection = random.choices(string.ascii_letters + string.digits, k=100)
-    >>> bubble_sort(collection) == sorted(collection)
-    True
-    """
-    length = len(collection)
-    for i in reversed(range(length)):
-        swapped = False
-        for j in range(i):
-            if collection[j] > collection[j + 1]:
-                swapped = True
-                collection[j], collection[j + 1] = collection[j + 1], collection[j]
-        if not swapped:
-            break  # Stop iteration if the collection is sorted.
-    return collection
-
-
-if __name__ == "__main__":
-    import doctest
-    import time
-
-    doctest.testmod()
-
-    user_input = input("Enter numbers separated by a comma:").strip()
-    unsorted = [int(item) for item in user_input.split(",")]
-    start = time.process_time()
-    print(*bubble_sort(unsorted), sep=",")
-    print(f"Processing time: {(time.process_time() - start)%1e9 + 7}")
+recursedeps = [
+  'src',
+]
