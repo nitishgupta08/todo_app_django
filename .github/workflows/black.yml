@@ -43,6 +43,7 @@ jobs:
       - name: Commit changes
         if: env.CHANGES_DETECTED == 'true'
         run: |
+          git checkout ${{ github.event.pull_request.number }}
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add .
