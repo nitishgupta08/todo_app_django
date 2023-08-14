@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   format:
@@ -44,4 +47,4 @@ jobs:
           git config user.email "action@github.com"
           git add .
           git commit -m "Auto-format code using black"
-          git push origin HEAD:$GITHUB_REF   
+          git push origin HEAD:$GITHUB_REF_NAME  
