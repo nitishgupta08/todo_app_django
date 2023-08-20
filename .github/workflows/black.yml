@@ -27,7 +27,7 @@ jobs:
           pip install black
 
       - name: Format code with Black
-        run: git diff --name-only ${{github.head_ref}} HEAD | grep "\.py$" | xargs -I {} black {} --line-length=250
+        run: git diff --name-only origin/${{github.head_ref}} HEAD | grep "\.py$" | xargs -I {} black {} --line-length=250
 
       - name: Check for changes
         id: check_changes
