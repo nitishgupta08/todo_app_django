@@ -2,8 +2,7 @@ name: Black Code Formatting
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: []
 
 jobs:
   format:
