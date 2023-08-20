@@ -26,6 +26,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install black
 
+      - name: Get PR Host
+        run: |
+          echo ${{github.event.pull_request.user.login}}
       - name: Format code with Black
         run: git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "\.py$" | xargs -I {} black {} --line-length=250
 
@@ -40,8 +43,8 @@ jobs:
       - name: Commit changes
         if: env.CHANGES_DETECTED == 'true'
         run: |
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
+          git config user.name ${{github.event.pull_request.user.name}}
+          git config user.email ${{github.event.pull_request.user.email}}
           git add .
           git commit -m "Auto-format code using black"
           git push origin HEAD:${{github.head_ref}}
