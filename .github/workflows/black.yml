@@ -12,8 +12,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           token: ${{secrets.PAT}}
 
       - name: Set up Python
@@ -27,12 +28,11 @@ jobs:
           pip install black
 
       - name: Format code with Black
-        run: git diff --name-only origin/${{github.head_ref}} HEAD | grep "\.py$" | xargs -I {} black {} --line-length=250
+        run: git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "\.py$" | xargs -I {} black {} --line-length=250
 
       - name: Check for changes
         id: check_changes
         run: |
-            echo "Base ref: $GITHUB_BASE_REF"
             if [[ $(git diff --exit-code) ]]; then
               echo "Changes detected"
               echo "CHANGES_DETECTED=true" >> $GITHUB_ENV
