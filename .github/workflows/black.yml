@@ -28,8 +28,9 @@ jobs:
 
       - name: Get PR Author details
         run: |
-          echo ${{github.event.pull_request.user.login}}
-          echo ${{github.event.pull_request.user.email}}
+           echo "EMAIL" ${{github.event.pull_request.user.email}}
+          echo "NAME" ${{github.event.pull_request.user.login}}
+        
 
       - name: Format code with Black
         run: git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "\.py$" | xargs -I {} black {} --line-length=250
@@ -46,7 +47,6 @@ jobs:
         if: env.CHANGES_DETECTED == 'true'
         run: |
           git config user.name ${{github.event.pull_request.user.login}}
-          git config user.email ${{github.event.pull_request.user.email}}
           git add .
           git commit -m "Auto-format code using black"
           git push origin HEAD:${{github.head_ref}}
