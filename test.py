@@ -5,7 +5,7 @@ class Publication(models.Model):
     title = models.CharField(max_length=30)
 
     class Meta:
-        ordering = ['title']
+        ordering = ["title"]
 
     def __str__(self):
         return self.title
@@ -16,7 +16,7 @@ class Article(models.Model):
     publications = models.ManyToManyField(Publication)
 
     class Meta:
-        ordering = ['headline']
+        ordering = ["headline"]
 
     def __str__(self):
         return self.headline
