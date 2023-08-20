@@ -28,9 +28,8 @@ jobs:
 
       - name: Get PR Author details
         run: |
-           echo ${{github.event.pull_request.user.email}}
           echo ${{github.event.pull_request.user.login}}
-        
+          echo ${{github.event.pull_request.user.email}}
 
       - name: Format code with Black
         run: git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "\.py$" | xargs -I {} black {} --line-length=250
