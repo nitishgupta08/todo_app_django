@@ -28,7 +28,7 @@ jobs:
           pip install black
 
       - name: Format code with Black
-        run: git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "\.py$" | xargs -I {} black {} --line-length=250
+        run: git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "\.py$" | xargs -I {} black {} --line-length=250
 
       - name: Check for changes
         id: check_changes
