@@ -27,11 +27,12 @@ jobs:
           pip install black
 
       - name: Format code with Black
-        run: git diff --name-only | grep "\.py$" | xargs -I {} black {} --line-length=250
+        run: git diff --name-only $GITHUB_BASE_REF HEAD | grep "\.py$" | xargs -I {} black {} --line-length=250
 
       - name: Check for changes
         id: check_changes
         run: |
+            echo "Base ref: $GITHUB_BASE_REF"
             if [[ $(git diff --exit-code) ]]; then
               echo "Changes detected"
               echo "CHANGES_DETECTED=true" >> $GITHUB_ENV
