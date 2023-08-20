@@ -1,9 +1,6 @@
 name: Black Code Formatting
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -15,8 +12,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           token: ${{secrets.PAT}}
 
       - name: Set up Python
@@ -30,7 +28,7 @@ jobs:
           pip install black
 
       - name: Format code with Black
-        run: black . --line-length=250
+        run: git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "\.py$" | xargs -I {} black {} --line-length=250
 
       - name: Check for changes
         id: check_changes
@@ -47,4 +45,4 @@ jobs:
           git config user.email "action@github.com"
           git add .
           git commit -m "Auto-format code using black"
-          git push origin HEAD:$GITHUB_REF_NAME  
+          git push origin HEAD:${{github.head_ref}}
