@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "todo.apps.TodoConfig",
     "api.apps.ApiConfig",
     "silk",
-    "import_export"
+    "import_export",
 ]
 
 MIDDLEWARE = [
@@ -140,6 +140,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-FIXTURE_DIRS = [
-    os.path.join(BASE_DIR, 'fixtures')
-]
+FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
