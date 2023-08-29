@@ -12,7 +12,7 @@ from faker import Faker
 DJANGO_PROJECT_PATH = os.path.join(os.path.dirname(__file__), "core")
 
 sys.path.append(DJANGO_PROJECT_PATH)
-os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
 django.setup()
 
@@ -20,10 +20,15 @@ from todo.models import Tag, Todo
 
 fake = Faker()
 
-status = ["OPEN", "WORKING", "DONE", "OVERDUE"]
+status = [
+    'OPEN',
+    'WORKING',
+    'DONE',
+    'OVERDUE'
+]
 des = (
-    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, amet quod dolore debitis inventore sequi aliquam. Beatae in, nulla animi praesentium dolorem saepe molestiae ducimus amet vitae aliquam iste ipsa maiores nesciunt eum "
-    "voluptatum qui quibusdam illum eaque nostrum similique eligendi nisi. Itaque vero neque nihil, nostrum maiores laboriosam molestiae?"
+    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, amet quod dolore debitis inventore sequi aliquam. Beatae in, nulla animi praesentium dolorem saepe molestiae ducimus amet vitae aliquam iste ipsa maiores nesciunt eum '
+    'voluptatum qui quibusdam illum eaque nostrum similique eligendi nisi. Itaque vero neque nihil, nostrum maiores laboriosam molestiae?'
 )
 
 for i in range(1, 51):
