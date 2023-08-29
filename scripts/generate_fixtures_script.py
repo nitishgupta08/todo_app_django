@@ -1,9 +1,13 @@
 import os
+"""
+Script to generate fixtures for all models in db
+"""
 import sys
-from django.core.management import call_command
+
 from django import setup
 from django.apps import apps
 from django.conf import settings
+from django.core.management import call_command
 
 DJANGO_PROJECT_PATH = os.path.dirname(os.getcwd())
 
