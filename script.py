@@ -12,7 +12,7 @@ from faker import Faker
 DJANGO_PROJECT_PATH = os.path.join(os.path.dirname(__file__), "core")
 
 sys.path.append(DJANGO_PROJECT_PATH)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
 
 django.setup()
 
