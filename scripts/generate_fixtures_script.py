@@ -1,9 +1,14 @@
+"""
+Script to generate fixtures for all models in db
+"""
 import os
+
 import sys
-from django.core.management import call_command
+
 from django import setup
 from django.apps import apps
 from django.conf import settings
+from django.core.management import call_command
 
 DJANGO_PROJECT_PATH = os.path.dirname(os.getcwd())
 
@@ -24,18 +29,18 @@ def generate_fixtures():
     for app_config in app_configs:
         app_name = app_config.name
 
-        if 'django' in app_name:
+        if "django" in app_name:
             continue
 
         for model in app_config.get_models():
             model_name = model.__name__
-            fixture_file = os.path.join(fixture_path, f'{model_name}_fixture.json')
+            fixture_file = os.path.join(fixture_path, f"{model_name}_fixture.json")
 
-            with open(fixture_file, 'w') as f:
-                call_command('dumpdata', f'{app_name}.{model_name}', indent=4, stdout=f)
+            with open(fixture_file, "w") as f:
+                call_command("dumpdata", f"{app_name}.{model_name}", indent=4, stdout=f)
 
-            print(f'Fixture generated for {app_name}.{model_name} at {fixture_file}')
+            print(f"Fixture generated for {app_name}.{model_name} at {fixture_file}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     generate_fixtures()
