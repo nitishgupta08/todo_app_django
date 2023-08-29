@@ -13,7 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
           token: ${{secrets.PAT}}
 
       - name: Set up Python
@@ -27,7 +28,7 @@ jobs:
           pip install black
 
       - name: Format code with Black
-        run: git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep "\.py$" | xargs -I {} black {} --line-length=250
+        run: git diff --name-only --diff-filter=ACMRT HEAD^ | grep "\.py$" | xargs -I {} black {} --line-length=250
 
       - name: Check for changes
         id: check_changes
@@ -40,8 +41,7 @@ jobs:
       - name: Commit changes
         if: env.CHANGES_DETECTED == 'true'
         run: |
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
+          git config user.name ${{ github.event.pull_request.user.login }}
           git add .
           git commit -m "Auto-format code using black"
           git push origin HEAD:${{github.head_ref}}
