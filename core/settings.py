@@ -141,4 +141,6 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-print("hello world")
+FIXTURE_DIRS = [
+    os.path.join(BASE_DIR, 'fixtures')
+]
