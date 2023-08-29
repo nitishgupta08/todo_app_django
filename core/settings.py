@@ -15,7 +15,6 @@ from pathlib import Path
 
 import environ
 
-print("hello world")
 env = environ.Env()
 environ.Env.read_env()
 
@@ -141,6 +140,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-FIXTURE_DIRS = [
-    os.path.join(BASE_DIR, 'fixtures')
-]
+FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures")]
