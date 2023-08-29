@@ -15,7 +15,6 @@ from pathlib import Path
 
 import environ
 
-print("hello world")
 env = environ.Env()
 environ.Env.read_env()
 
@@ -47,7 +46,7 @@ INSTALLED_APPS = [
     "todo.apps.TodoConfig",
     "api.apps.ApiConfig",
     "silk",
-    "import_export",
+    "import_export"
 ]
 
 MIDDLEWARE = [
