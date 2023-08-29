@@ -1,7 +1,8 @@
-import os
 """
 Script to generate fixtures for all models in db
 """
+import os
+
 import sys
 
 from django import setup
