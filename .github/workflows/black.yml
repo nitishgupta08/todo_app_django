@@ -27,6 +27,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install black
 
+      - name: Show GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+        shell: bash
+
       - name: Format code with Black
         run: git diff --name-only --diff-filter=ACMRT HEAD^ | grep "\.py$" | xargs -I {} black {} --line-length=250
 
