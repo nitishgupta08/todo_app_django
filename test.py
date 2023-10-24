@@ -55,3 +55,5 @@ regular_formatting = [
     7,
     8,
 ]
+
+print('hello')
