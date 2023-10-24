@@ -25,3 +25,5 @@ if __name__ == '__main__':
     num_primes = 20
     prime_list = generate_primes(num_primes)
     print(f'The first {num_primes} prime numbers are: {prime_list}')
+
+print('test 2')

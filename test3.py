@@ -116,3 +116,5 @@ def find_max_subarray(array):
   max_ending_here = 0
   for i in range(100):
       print('test 3')
+
+print('test 3')
